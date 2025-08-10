@@ -1,0 +1,16 @@
+# Upstream (IP Hash)
+upstream apache_example {
+    ip_hash;
+    server 192.230.202.12:80;
+    server 192.230.202.3:80;
+}
+server {
+    listen 80;
+    server_name apache.example.com;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+
+    location / {
+        proxy_pass http://apache_example;
+    }
