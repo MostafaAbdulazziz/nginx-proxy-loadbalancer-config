@@ -1,0 +1,15 @@
+# Upstream (Weighted Round Robin)
+upstream apache_example {
+    server 192.230.202.12:80 weight=10;
+    server 192.230.202.3:80  weight=1;
+}
+server {
+    listen 80;
+    server_name apache.example.com;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+
+    location / {
+        proxy_pass http://apache_example;
+    }
